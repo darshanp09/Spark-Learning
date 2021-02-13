@@ -1,5 +1,6 @@
 package retail_db
 import  org.apache.spark.{SparkContext,SparkConf}
+
 object GetRevenuePerOrder {
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf()
@@ -17,8 +18,13 @@ object GetRevenuePerOrder {
     ).reduceByKey(_ + _).
       map(oi => oi._1 +","+oi._2)
 
-    revenuePerOrder.saveAsTextFile(args(3))
+    revenuePerOrder.saveAsTextFile(args(2))
 
+//    sbt "run-main ClassName args"
+
+    /*
+     spark-submit --class retail_db.GetRevenuePerOrder "/Users/swaminarayan/Documents/Spark/spark/spark-demo/target/scala-2.11/spark-demo_2.11-0.1.jar" local /Users/swaminarayan/Documents/data/retail_db/order_items /Users/swaminarayan/Documents/Spark/spark/spark-demo/revenue_per_order
+     */
 
   }
 
